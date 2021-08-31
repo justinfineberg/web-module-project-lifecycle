@@ -44,18 +44,35 @@ handleSubmit = (e) =>{
   })
 }
 
+secondLink = (login) =>{
+  this.setState({
+    ...this.state,
+    search: login
+  })
+  console.log(`https://api.github.com/users/${login}`)
+   axios.get(`https://api.github.com/users/${login}`)
+  .then(res=>{
+    this.setState({
+      ...this.state,
+      user: res.data
+    })
+  })
+
+}
+
+
+
   render() {
-    console.log(this.state.user.name)
     return (
       
       <div className="flex flex-col">
-         <h1 className="text-3xl m-auto border-8 p-4 mt-3 text-center"> Stalk a GitHub User</h1>
+         <h1 className="text-3xl m-auto border-8 w-full bg-yellow-200 p-4 mt-3 text-center">Stalk a GitHub User</h1>
         <form onSubmit={this.handleSubmit} className="text-2xl m-auto p-4 mt-3 text-center">
-          <input onChange={this.handleChange} placeholder="Enter github username" className="border-4" type="text" />
+          <input value={this.state.search} onChange={this.handleChange} placeholder="Enter github username" className="border-4" type="text" />
           <button>Search</button>
          
         </form>
-        <Card username={this.state.user.login} name={this.state.user.name} followers={this.state.user.followers} following={this.state.user.following} image={this.state.user["avatar_url"]} />
+        <Card secondLink={this.secondLink} username={this.state.user.login} name={this.state.user.name} followers={this.state.user.followers} following={this.state.user.following} image={this.state.user["avatar_url"]} />
       </div>
     );
   }

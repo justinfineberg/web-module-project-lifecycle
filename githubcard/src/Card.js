@@ -15,6 +15,8 @@ class Card extends Component {
             })
         })
     }
+
+ 
     
     render() {
     const { name, following, followers, image } = this.props
@@ -35,7 +37,7 @@ class Card extends Component {
             Follower Break Down:
                 {
                     this.state.followers.map(item=>{
-                    return <li>{item.login}</li>
+                    return <li className="cursor-pointer hover:underline " onClick={e=>this.props.secondLink(item.login)}>{item.login}</li>
                     })
                 }
             </ul>
